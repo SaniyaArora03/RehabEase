@@ -25,9 +25,18 @@
     align-items: center;
     margin: 1rem;
 }
+.streak{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .heading{
     margin-top: 100px;
     margin-left: 30%;
+}
+.heading2{
+    margin-top: 100px;
+    margin-left: 37%;
 }
 .buttons{
  display: flex;
@@ -64,5 +73,16 @@
 }
 .notebook{
     margin-left: 30%;
+    font-size: 20px;
    
+}
+.notePara{
+    color: azure;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    margin-left: 10%;
+}
+a{
+    text-decoration: none;
+    color: #add8e6;
 }
