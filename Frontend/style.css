@@ -135,7 +135,12 @@ a{
 .profileSummary{
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin: 30px;
+    gap: 2rem;
+    margin: 3rem;
     flex-wrap: wrap;
+}
+.card{
+    background-color: #add8e6;
+    padding: 1rem;
+    border-radius: 10px;
 }
