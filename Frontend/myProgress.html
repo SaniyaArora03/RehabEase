@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
-    <title>RehabEase</title>
+    <title>My Progress</title>
 </head>
 <body>
     <!-- navbar -->
@@ -33,29 +33,28 @@
      </nav>
      <!--  -->
 
-     <!-- heading -->
-      <h1 class="heading">Welcome! What's the plan for today?</h1>
-      <!--  -->
-<div class="buttons">
-     <!-- buttons -->
-        <div class="btn-group">
-        <button><a href="myExercise.html" target="_blank">Start today's workout</a> </button>
-        <button>Contact your Doctor</button>
-    </div>
-      <!-- note for today -->
- <div class="note">
-    <p class="notebook" id="notebook">Note for today: </p>
-    <div id="noteContent"><p class="notePara">10 minutes of stretching,20 minutes of cardio,30 minutes of strength training</p></div>
-    <p class="notebook" id="notebook">Yesterday's status: </p>
-     <div id="noteContent"><p class="notePara">Mild fatigue detected, recommended rest</p></div>
+     <!-- Profile summary -->
+      <h1 class="heading3">My Progress</h1>
+      <section class="profileSummary">
+         <div class="card">
+            <h2>Sessions Completed</h2>
+            <p id="sessions-count">12</p>
+        </div>
+        <div class="card">
+            <h2>Exercises Accuracy</h2>
+            <p id="accuracy-percent">85%</p>
+        </div>
+        <div class="card">
+            <h2>Improvement</h2>
+            <p id="improvement-level">Good</p>
+        </div>
+      </section>
 
- </div>
-
-
-     
-</div>
-
-
+      <!-- charts -->
+    <section class="chart-section">
+        <h2>Progress Chart</h2>
+        <canvas id="progressChart"></canvas>
+    </section>
     
 </body>
 </html>

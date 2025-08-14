@@ -37,6 +37,11 @@
 .heading2{
     margin-top: 100px;
     margin-left: 37%;
+
+}
+.heading3{
+    margin-top: 100px;
+    margin-left: 45%;
 }
 .buttons{
  display: flex;
@@ -68,7 +73,9 @@
     color: #add8e6;
     padding: 0.5rem;
     border-radius: 10px;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 27%;
 }
 .note{
     margin-top: 4rem;
@@ -99,5 +106,36 @@ a{
 .feedback-placeholder{
     color: #070738;
     background-color: #add8e6;
-   
+    width: 40%;
+   height: 10vh;
+   border-radius: 10px;
+   margin-left: 10%;
+}
+.exercise-list{
+    width: 30%;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    padding: 2rem;
+      background-color: #070738;
+    color: #add8e6;
+    border-radius: 10px;
+}
+.exerHead{
+    margin-left: 15%;
+    margin-bottom: 0.5rem;
+}
+.exerciseCard{
+    margin-top: 1rem;
+    margin-left: 30%;
+}
+.feedPara{
+    margin-left: 25%;
+    
+}
+.profileSummary{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px;
+    flex-wrap: wrap;
 }
