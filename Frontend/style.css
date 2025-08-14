@@ -60,6 +60,16 @@
     padding: 1rem;
     border-radius: 10px;
 }
+.exerbutton{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #070738;
+    color: #add8e6;
+    padding: 0.5rem;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
 .note{
     margin-top: 4rem;
     margin-right: 20%;
@@ -85,4 +95,9 @@
 a{
     text-decoration: none;
     color: #add8e6;
+}
+.feedback-placeholder{
+    color: #070738;
+    background-color: #add8e6;
+   
 }
