@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <title>Today's Plan</title>
+</head>
+<body>
+    <!-- navbar -->
+     <nav class="navbar">
+        <div class="nav">
+            <i class="fa-solid fa-house"></i>
+            <p><a href="index.html">Home</a></p>
+        </div>
+        <div class="nav">
+            <i class="fa-solid fa-dumbbell"></i>
+            <p><a href="myExercise.html">My Exercises</a></p>
+        </div>
+        <div class="nav">
+            <i class="fa-solid fa-bars-progress"></i>
+            <p><a href="myProgress.html">My Progress</a> </p>
+        </div>
+        <div class="nav">
+           <i class="fa-solid fa-book"></i>
+            <p><a href="todayPlan.html">Today's Rehab</a> </p>
+        </div>
+        <div class="nav">
+            <i class="fa-solid fa-right-from-bracket"></i>
+             <p>Log Out</p>
+        </div>
+        <div class="streak">
+            <i class="fa-solid fa-fire" style="color: #FFD43B;"></i>
+            <p>5</p>
+        </div>
+     </nav>
+     <!--  -->
+
+      <h1 class="heading2">Today's Rehab Plan</h1>
+       <p id="current-date"></p>
+
+       <!-- progress bar -->
+        <div class="progress-bar">
+             <p>Today's Progress:</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p id="progress-text">0% completed</p>
+        </div>
+
+        <!-- exercise card -->
+         <div class="exercise-list2">
+            <div class="exercise-card">
+                <h3>Shoulder Stretch</h3>
+                <p>3 sets of 10 reps</p>
+                <button class="done-btn">Mark as Done</button>
+            </div>
+            <div class="exercise-card">
+                <h3>Leg Raises</h3>
+                <p>2 sets of 15 reps</p>
+                <button class="done-btn">Mark as Done</button>
+            </div>
+            <div class="exercise-card">
+                <h3>Neck Rotations</h3>
+                <p>2 sets of 8 reps each side</p>
+                <button class="done-btn">Mark as Done</button>
+            </div>
+        </div>
+<!-- daily tip -->
+        <div class="tip-box">
+            <h3>Daily Tip</h3>
+            <p id="daily-tip">Remember to breathe steadily during each exercise for better oxygen flow.</p>
+        </div>
+<script src="today.js"    ></script>    
+</body>
+</html>

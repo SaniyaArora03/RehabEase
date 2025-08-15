@@ -144,3 +144,30 @@ a{
     padding: 1rem;
     border-radius: 10px;
 }
+#current-date{
+    margin-left: 41%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+.progress-bar{
+    margin-left: 10%;
+}
+.exercise-list2{
+    width: 30%;
+    margin-top: 1rem;
+    margin-left: 31%;
+    padding: 2rem;
+      background-color: #070738;
+    color: #add8e6;
+    border-radius: 10px;
+}
+.tip-box{
+    background-color: #add8e6;
+    color: #070738;
+    width: 360px;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-top: 1rem;
+    margin-left: 34%;
+}
