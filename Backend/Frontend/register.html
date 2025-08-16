@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Register</title>
+</head>
+<body>
+     <h2 class="heading3">Register</h2>
+
+  <!-- registration form -->
+  <form id="registerForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" required><br><br>
+
+    <label>Condition:</label>
+    <input type="text" id="condition" placeholder="Enter your condition" required><br><br>
+
+
+    <button type="submit">Register</button>
+  </form>
+
+  <p>Already have an account? <a href="login.html">Login here</a></p>
+
+  <script>
+    // get the form element
+    document.getElementById("registerForm").addEventListener("submit",async(e)=>{
+        e.preventDefault();
+        const email=document.getElementById("email").value;
+         const password=document.getElementById("password").value;
+          const confirmPassword=document.getElementById("confirmPassword").value;
+          const condition = document.getElementById("condition").value;
+
+          //check if passwords dont match
+          if(password!==confirmPassword){
+            alert("Passwords dont match");
+            return;
+          }
+
+          //registration
+          try{
+            const response=await fetch("/api/register",{
+                method:"POST",
+                headers:{"Content-type":"application/json"},
+                 body: JSON.stringify({name, email, password, condition})
+            });
+            const data=await response.json();
+            if(data.success){
+                alert("Registration successful");
+                window.location.href="login.html";
+                }else{
+                    alert("Registration failed");
+                }
+          }catch(err){
+            console.log(err);
+             alert("Something went wrong. Please try again later.");
+          }
+    })
+  </script>
+
+</body>
+</html>
