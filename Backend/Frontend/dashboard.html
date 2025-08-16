@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Complete Your Profile</h2>
+    <form id="profile-form">
+        <input type="number" name="age" placeholder="Enter Age" required />
+        <!-- condition -->
+         <label for="condition">Condition 1:</label>
+         <input type="text" id="condition1" name="condition" placeholder="Enter Condition" required />
+
+          <label for="condition">Condition 2:</label>
+         <input type="text" id="condition2" name="condition" placeholder="Enter Condition" />
+
+          <label for="condition">Condition 3:</label>
+         <input type="text" id="condition3" name="condition" placeholder="Enter Condition"  />
+        
+         <!-- video url -->
+          <label for="video">Video URL1:</label>
+          <input type="url" id="video1" name="video" placeholder="Enter Video URL" required />
+
+          <label for="video">Video URL2:</label>
+          <input type="url" id="video2" name="video" placeholder="Enter Video URL"/>
+
+          <label for="video">Video URL3:</label>
+          <input type="url" id="video3" name="video" placeholder="Enter Video URL" />
+
+          <!-- physiotherapist info -->
+           <h3>Physiotherapist Information</h3>
+           <label for="physiotherapist">Physiotherapist Name:</label>
+           <input type="text" id="physiotherapist" name="physiotherapist " placeholder="Enter Physiotherapist Name" required />
+           <label for="physiotherapistContact">Physiotherapist Contact Number:</label>
+           <input type="number" id="physiotherapistContact" name="physiotherapistContact" placeholder="Enter Physiotherapist Contact Number" required />
+           <button type="submit">Save Profile</button>
+    </form>
+
+    <script>
+        document.getElementById("profile-form").addEventListener("submit",async(e)=>{
+            e.preventDefault();
+            //get form data
+        const formData = {
+        age: document.getElementById("age").value,
+        condition1: document.getElementById("condition1").value,
+        condition2: document.getElementById("condition2").value,
+        condition3: document.getElementById("condition3").value,
+        video1: document.getElementById("video1").value,
+        video2: document.getElementById("video2").value,
+        video3: document.getElementById("video3").value,
+        physiotherapist: document.getElementById("physiotherapist").value,
+        physiotherapistContact: document.getElementById("physiotherapistContact").value,
+    };
+    const res = await fetch("/api/profile", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+    });
+if (res.ok) {
+        alert("Profile saved successfully!");
+        window.location.href = "/home.html"; // redirect to home page
+    } else {
+        alert("Error saving profile");
+    }
+        })
+    </script>
+</body>
+</html>

@@ -1,23 +1,31 @@
-const express=require("express");
+const express = require("express");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
-const connectDB=require("./config/db");
-const path = require("path"); 
+const connectDB = require("./config/db");
+const path = require("path");
 
 dotenv.config();
 connectDB();
 const app = express();
 app.use(bodyParser.json());
 
-//serve frontenf files 
-app.use(express.static(path.join(__dirname, "Frontend")));
+// ✅ Serve only assets (css, js, images)
+app.use("/static", express.static(path.join(__dirname, "Frontend")));
+
 // Routes
 app.use("/api/users", require("./routers/userRoutes"));
 
-// Default route → load login.html
+// ✅ Default route → always load login.html
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "Frontend", "login.html"));
 });
+app.get("/register", (req, res) => {
+  console.log("Serving:", path.join(__dirname, "Frontend", "register.html"));
+  res.sendFile(path.join(__dirname, "Frontend", "register.html"));
+});
+
+
+// ✅ Optional: route for index.html (after login)
 app.get("/home", (req, res) => {
   res.sendFile(path.join(__dirname, "Frontend", "index.html"));
 });

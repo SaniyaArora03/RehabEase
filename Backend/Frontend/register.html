@@ -30,12 +30,13 @@
     <button type="submit">Register</button>
   </form>
 
-  <p>Already have an account? <a href="login.html">Login here</a></p>
+<p>Already have an account? <a href="/">Login here</a></p>
 
   <script>
     // get the form element
     document.getElementById("registerForm").addEventListener("submit",async(e)=>{
         e.preventDefault();
+        const name = document.getElementById("name").value; 
         const email=document.getElementById("email").value;
          const password=document.getElementById("password").value;
           const confirmPassword=document.getElementById("confirmPassword").value;
@@ -49,7 +50,7 @@
 
           //registration
           try{
-            const response=await fetch("/api/register",{
+            const response=await fetch("/api/users/register",{
                 method:"POST",
                 headers:{"Content-type":"application/json"},
                  body: JSON.stringify({name, email, password, condition})
