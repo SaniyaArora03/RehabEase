@@ -3,48 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="/static/style.css">
+
     <title>Dashboard</title>
 </head>
 <body>
-    <h2>Complete Your Profile</h2>
+    <h2 class="heading2">Complete Your Profile</h2>
     <form id="profile-form">
-        <input type="number" name="age" placeholder="Enter Age" required />
-        <!-- condition -->
-         <label for="condition">Condition 1:</label>
-         <input type="text" id="condition1" name="condition" placeholder="Enter Condition" required />
+    <input type="number" id="age" name="age" placeholder="Enter Age" required />
 
-          <label for="condition">Condition 2:</label>
-         <input type="text" id="condition2" name="condition" placeholder="Enter Condition" />
+    <label for="condition1">Condition 1:</label>
+    <input type="text" id="condition1" name="condition1" required />
 
-          <label for="condition">Condition 3:</label>
-         <input type="text" id="condition3" name="condition" placeholder="Enter Condition"  />
-        
-         <!-- video url -->
-          <label for="video">Video URL1:</label>
-          <input type="url" id="video1" name="video" placeholder="Enter Video URL" required />
+    <label for="condition2">Condition 2:</label>
+    <input type="text" id="condition2" name="condition2" />
 
-          <label for="video">Video URL2:</label>
-          <input type="url" id="video2" name="video" placeholder="Enter Video URL"/>
+    <label for="condition3">Condition 3:</label>
+    <input type="text" id="condition3" name="condition3" />
 
-          <label for="video">Video URL3:</label>
-          <input type="url" id="video3" name="video" placeholder="Enter Video URL" />
+    <label for="video1">Video URL1:</label>
+    <input type="url" id="video1" name="video1" required />
 
-          <!-- physiotherapist info -->
-           <h3>Physiotherapist Information</h3>
-           <label for="physiotherapist">Physiotherapist Name:</label>
-           <input type="text" id="physiotherapist" name="physiotherapist " placeholder="Enter Physiotherapist Name" required />
-           <label for="physiotherapistContact">Physiotherapist Contact Number:</label>
-           <input type="number" id="physiotherapistContact" name="physiotherapistContact" placeholder="Enter Physiotherapist Contact Number" required />
-           <button type="submit">Save Profile</button>
-    </form>
+    <label for="video2">Video URL2:</label>
+    <input type="url" id="video2" name="video2" />
 
-    <script>
-        document.getElementById("profile-form").addEventListener("submit",async(e)=>{
-            e.preventDefault();
-            //get form data
-        const formData = {
-        age: document.getElementById("age").value,
+    <label for="video3">Video URL3:</label>
+    <input type="url" id="video3" name="video3" />
+
+    <h3>Physiotherapist Information</h3>
+    <label for="physiotherapist">Name:</label>
+    <input type="text" id="physiotherapist" required />
+
+    <label for="physiotherapistContact">Contact:</label>
+    <input type="number" id="physiotherapistContact" required />
+
+    <button type="submit">Save Profile</button>
+</form>
+
+<script>
+document.getElementById("profile-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = {
+        age: Number(document.getElementById("age").value),
         condition1: document.getElementById("condition1").value,
         condition2: document.getElementById("condition2").value,
         condition3: document.getElementById("condition3").value,
@@ -52,22 +53,28 @@
         video2: document.getElementById("video2").value,
         video3: document.getElementById("video3").value,
         physiotherapist: document.getElementById("physiotherapist").value,
-        physiotherapistContact: document.getElementById("physiotherapistContact").value,
+        physiotherapistContact: Number(document.getElementById("physiotherapistContact").value)
     };
+
+    const token = localStorage.getItem("token"); // ⚠️ Your JWT token storage
+
     const res = await fetch("/api/profile", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(formData)
     });
-if (res.ok) {
+
+    if (res.ok) {
         alert("Profile saved successfully!");
-        window.location.href = "/home.html"; // redirect to home page
+        window.location.href = "/index.html";
     } else {
-        alert("Error saving profile");
+        const error = await res.json();
+        alert("Error: " + error.message);
     }
-        })
-    </script>
+});
+</script>
 </body>
 </html>

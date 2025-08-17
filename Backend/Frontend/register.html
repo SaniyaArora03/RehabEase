@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="/static/style.css">
+
     <title>Register</title>
 </head>
 <body>
@@ -23,9 +24,7 @@
     <label for="confirmPassword">Confirm Password:</label>
     <input type="password" id="confirmPassword" required><br><br>
 
-    <label>Condition:</label>
-    <input type="text" id="condition" placeholder="Enter your condition" required><br><br>
-
+    
 
     <button type="submit">Register</button>
   </form>
@@ -40,7 +39,7 @@
         const email=document.getElementById("email").value;
          const password=document.getElementById("password").value;
           const confirmPassword=document.getElementById("confirmPassword").value;
-          const condition = document.getElementById("condition").value;
+         
 
           //check if passwords dont match
           if(password!==confirmPassword){
@@ -53,14 +52,15 @@
             const response=await fetch("/api/users/register",{
                 method:"POST",
                 headers:{"Content-type":"application/json"},
-                 body: JSON.stringify({name, email, password, condition})
+                 body: JSON.stringify({name, email, password})
             });
             const data=await response.json();
-            if(data.success){
+            if(response.ok){
                 alert("Registration successful");
-                window.location.href="login.html";
+                window.location.href="/";
                 }else{
                     alert("Registration failed");
+                    console.log(data.message);
                 }
           }catch(err){
             console.log(err);

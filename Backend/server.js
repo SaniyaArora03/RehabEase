@@ -1,33 +1,51 @@
+// server.js
 const express = require("express");
 const dotenv = require("dotenv");
-const bodyParser = require("body-parser");
-const connectDB = require("./config/db");
 const path = require("path");
+const connectDB = require("./config/db");
 
 dotenv.config();
 connectDB();
+
 const app = express();
-app.use(bodyParser.json());
 
-// ✅ Serve only assets (css, js, images)
-app.use("/static", express.static(path.join(__dirname, "Frontend")));
+// Parse JSON bodies (use this instead of bodyParser)
+app.use(express.json());
 
-// Routes
+//  Serve frontend assets
+app.use("/static", express.static(path.join(__dirname, "Frontend/static")));
+
+
+//  API routes
 app.use("/api/users", require("./routers/userRoutes"));
+app.use("/api", require("./routers/profRoutes"));
 
-// ✅ Default route → always load login.html
+// Pages
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "Frontend", "login.html"));
 });
 app.get("/register", (req, res) => {
-  console.log("Serving:", path.join(__dirname, "Frontend", "register.html"));
   res.sendFile(path.join(__dirname, "Frontend", "register.html"));
 });
-
-
-// ✅ Optional: route for index.html (after login)
-app.get("/home", (req, res) => {
+app.get("/index.html", (req, res) => {
   res.sendFile(path.join(__dirname, "Frontend", "index.html"));
+});
+app.get("/dashboard.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "Frontend", "dashboard.html"));
+});
+app.get("/myProgress.html", (req, res) =>
+  res.sendFile(path.join(__dirname, "Frontend", "myProgress.html"))
+);
+app.get("/myExercise.html", (req, res) =>
+  res.sendFile(path.join(__dirname, "Frontend", "myExercise.html"))
+);
+app.get("/todayPlan.html", (req, res) =>
+  res.sendFile(path.join(__dirname, "Frontend", "todayPlan.html"))
+);
+// (optional) simple error logger to see real error texts
+app.use((err, req, res, next) => {
+  console.error("Server Error:", err);
+  res.status(500).json({ message: "Internal server error" });
 });
 
 const PORT = process.env.PORT || 5000;

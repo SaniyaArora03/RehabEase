@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+ <link rel="stylesheet" href="/static/style.css">
+
   <title>Login</title>
 </head>
 <body>
@@ -23,35 +24,36 @@
 
 
   <script>
-    // get the form element
-    document.getElementById("loginForm").addEventListener("submit", async (e) => {
-      e.preventDefault(); // prevent default form submission
+  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      // get the form data
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-      try {
-        // send the data to the server
-        const response = await fetch("/api/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password })
-        });
+    try {
+      const response = await fetch("/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (data.success) {
-          alert("Login successful");
-          window.location.href = "/home"; // redirect to home
-        } else {
-          alert(data.message);
-        }
-      } catch (err) {
-        console.error(err);
-        alert("Something went wrong. Please try again later.");
+      if (data.message === "Login successful") {
+        // store token for authenticated requests later
+        localStorage.setItem("token", data.token);
+
+        // ✅ use backend’s redirectTo value
+        window.location.href = data.redirectTo;
+      } else {
+        alert(data.message);
       }
-    });
-  </script>
+    } catch (err) {
+      console.error("❌ Login error:", err);
+      alert("Something went wrong. Please try again later.");
+    }
+  });
+</script>
+
 </body>
 </html>
