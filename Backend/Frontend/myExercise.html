@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/static/style.css">
-
     <title>My Exercises</title>
 </head>
 <body>
@@ -36,31 +35,68 @@
             <p>5</p>
         </div>
      </nav>
-     <!--  -->
 
     <h1 class="heading2">Come On! You got this!</h1>
+
     <!-- exercise section -->
-     <div class="exerciseCard">
+    <div class="exerciseCard">
         <!-- video -->
-         <video width="640" height="360" controls>
-            <source src="https://www.youtube.com/watch?v=LsB2mEMA1wk&pp=ygUMa25lZSBzdHJldGNo">
-             Your browser does not support the video tag.
-         </video>
-         <h2>Knee Stretch</h2>
-          <p>Stand straight, bend your knee slowly, hold for 10 seconds, then release.</p>
-    <p><strong>Sets/Reps:</strong> 3 × 10</p>
-    <button class="exerbutton">Start Exercise</button>
-    <!-- feedback -->
-     <div class="feedback-placeholder">
-      <p class="feedPara"><strong>Status: Waiting to start...</strong></p>
+        <div id="exerciseContainer">
+            <iframe id="exerciseVideo" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <h2>Knee Stretch</h2>
+        <p>Stand straight, bend your knee slowly, hold for 10 seconds, then release.</p>
+        <p><strong>Sets/Reps:</strong> 3 × 10</p>
+        <button class="exerbutton">Start Exercise</button>
+        
+        <!-- feedback -->
+        <div class="feedback-placeholder">
+            <p class="feedPara"><strong>Status: Waiting to start...</strong></p>
+        </div>
+
+        <div class="exercise-list">
+            <h3 class="exerHead">Upcoming Exercises</h3>
+            <ul id="upcomingList"></ul>
+        </div>
     </div>
-     <div class="exercise-list">
-    <h3 class="exerHead">Upcoming Exercises</h3>
-    <ul>
-        <li>Arm Raises</li>
-        <li>Leg Lifts</li>
-    </ul>
- </div>
-     </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("/api/profile", {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+
+      const profile = await res.json();
+
+      // main video
+      const exerciseVideo = document.getElementById("exerciseVideo");
+
+      if (profile.videos && profile.videos.length > 0) {
+        // Convert first video to embed and set as main video
+        let embedUrl = profile.videos[0].replace("watch?v=", "embed/").split("&")[0];
+        exerciseVideo.src = embedUrl;
+
+        //  upcoming list
+        const upcomingList = document.getElementById("upcomingList");
+        upcomingList.innerHTML = "";
+
+        profile.videos.slice(1).forEach(videoUrl => {
+          let embedUrl = videoUrl.replace("watch?v=", "embed/").split("&")[0];
+          const li = document.createElement("li");
+          li.innerHTML = `<iframe width="280" height="157" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>`;
+          upcomingList.appendChild(li);
+        });
+      } else {
+        exerciseVideo.src = "";
+        document.getElementById("upcomingList").innerHTML = "<p>No upcoming exercises</p>";
+      }
+    } catch (err) {
+      console.error("Error loading profile:", err);
+    }
+  });
+</script>
 </body>
 </html>

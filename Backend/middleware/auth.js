@@ -8,7 +8,8 @@ module.exports = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = { id: decoded.userId }; // ⚠️ Ensure your JWT payload uses `userId`
+    req.user = { id: decoded.id };
+
     next();
   } catch (err) {
     console.error("Token verification error:", err);
