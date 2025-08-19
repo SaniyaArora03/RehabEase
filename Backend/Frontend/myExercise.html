@@ -22,10 +22,7 @@
             <i class="fa-solid fa-bars-progress"></i>
             <p><a href="/myProgress.html">My Progress</a> </p>
         </div>
-        <div class="nav">
-           <i class="fa-solid fa-book"></i>
-            <p><a href="/todayPlan.html">Today's Rehab</a> </p>
-        </div>
+       
         <div class="nav">
             <i class="fa-solid fa-right-from-bracket"></i>
              <p>Log Out</p>
@@ -43,11 +40,19 @@
         <!-- video -->
         <div id="exerciseContainer">
             <iframe id="exerciseVideo" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+
+             <!-- Webcam detection -->
+        <div>
+            <h3>Your Webcam</h3>
+            <img id="webcamFeed" src="http://127.0.0.1:5001/pose_feed" width="480" height="270" alt="Webcam" />
+        </div>
+
         </div>
         <h2>Knee Stretch</h2>
         <p>Stand straight, bend your knee slowly, hold for 10 seconds, then release.</p>
         <p><strong>Sets/Reps:</strong> 3 × 10</p>
-        <button class="exerbutton">Start Exercise</button>
+        <button class="exerbutton" id="startExercise">Start Exercise</button>
+        <button class="exerbutton" id="stopExercise">Stop Exercise</button>
         
         <!-- feedback -->
         <div class="feedback-placeholder">
@@ -68,11 +73,40 @@
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
       });
+      //logout
+      document.querySelector(".fa-right-from-bracket").addEventListener("click", () => {
+    localStorage.removeItem("token"); // remove auth
+    window.location.href = "/login.html";
+});
 
       const profile = await res.json();
 
       // main video
       const exerciseVideo = document.getElementById("exerciseVideo");
+
+      //start on button click
+      document.getElementById("startExercise").addEventListener("click", () => {
+  document.getElementById("webcamFeed").src = "http://127.0.0.1:5001/pose_feed";
+  document.querySelector(".feedPara").innerText = "Status: Exercise Started!";
+});
+//stop on button click
+document.getElementById("stopExercise").addEventListener("click", () => {
+  document.getElementById("webcamFeed").src = "";
+  document.querySelector(".feedPara").innerText = "Status: Stopped.";
+});
+//display feedback
+setInterval(async () => {
+        try {
+          const resp = await fetch("http://127.0.0.1:5001/pose_status");
+          const data = await resp.json();
+          document.querySelector(".feedPara").innerText =
+            `Status: ${data.status} | Angle: ${data.angle}° | Reps: ${data.reps}`;
+        } catch (err) {
+          console.error("Error fetching pose status:", err);
+        }
+      }, 1000);
+
+
 
       if (profile.videos && profile.videos.length > 0) {
         // Convert first video to embed and set as main video
